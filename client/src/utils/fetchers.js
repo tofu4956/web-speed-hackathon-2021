@@ -15,7 +15,9 @@ async function fetchBinary(url) {
 async function fetchJSON(url) {
   const result = await fetch(url);
   if (result.ok) {
-    return result.json();
+    return await (await fetch(url, {
+      method: 'GET',
+    })).json();
   }
   return null;
 }
@@ -41,15 +43,13 @@ async function sendFile(url, file) {
  * @returns {Promise<T>}
  */
 async function sendJSON(url, data) {
-
-  const result = await (await fetch(url,{
+  return await (await fetch(url,{
     method: 'POST',
     headers: {
-      contentType: 'application/json',
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(data),
   })).json();
-  return result;
 }
 
 export { fetchBinary, fetchJSON, sendFile, sendJSON };
