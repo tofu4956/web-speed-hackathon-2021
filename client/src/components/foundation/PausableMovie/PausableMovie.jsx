@@ -19,7 +19,7 @@ import { FontAwesomeIcon } from '../FontAwesomeIcon';
  */
 const PausableMovie = ({ src }) => {
   const { data, isLoading } = useFetch(src, fetchBinary);
-
+  const [isPlaying, setIsPlaying] = React.useState(true);
   /** @type {React.RefObject<import('gifler').Animator>} */
   const animatorRef = React.useRef(null);
   /** @type {React.RefCallback<HTMLCanvasElement>} */
@@ -53,7 +53,6 @@ const PausableMovie = ({ src }) => {
     [data],
   );
 
-  const [isPlaying, setIsPlaying] = React.useState(true);
   const handleClick = React.useCallback(() => {
     setIsPlaying((isPlaying) => {
       if (isPlaying) {
